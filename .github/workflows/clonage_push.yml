@@ -12,10 +12,6 @@ jobs:
         with:
           node-version: '16.x'
       - uses: actions/checkout@v3
-      - name: Nettoyer le répertoire courant
-        run: |
-          rm -rf *
-          rm -rf .*
       - name: Vérifier que le répertoire courant est vide
         run: |
           if [ "$(ls -A)" ]; then
