@@ -12,10 +12,11 @@ jobs:
         with:
           node-version: '16.x'
       - uses: actions/checkout@v3
-      - name: Copier le répertoire cloné
+      - name: Renommer le répertoire cloné
         run: |
-          cp -R . "$(basename -s .git $GITHUB_REPOSITORY)_$GITHUB_ACTOR"
-          rm -rf .
+          if [ -d .git ]; then
+            mv . "$(basename -s .git $GITHUB_REPOSITORY)_$GITHUB_ACTOR"
+          fi
       - name: Vérifier le clonage
         run: echo "Le clonage a été effectué avec succès !"
 
