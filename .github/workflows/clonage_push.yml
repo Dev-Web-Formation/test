@@ -15,7 +15,8 @@ jobs:
       - name: Renommer le répertoire cloné
         run: |
           if [ -d .git ]; then
-            mv . "$(basename -s .git $GITHUB_REPOSITORY)_$GITHUB_ACTOR"
+            cp -r . "$(basename -s .git $GITHUB_REPOSITORY)_$GITHUB_ACTOR"
+            rm -rf .
           fi
       - name: Vérifier le clonage
         run: echo "Le clonage a été effectué avec succès !"
