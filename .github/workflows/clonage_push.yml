@@ -1,34 +1,27 @@
-name: Clonage Workflow
+name: Clonage et renommage du repo
 
 on:
   push:
-    branches: [ main ] # remplacez "main" par le nom de votre branche principale
+    branches: [ main ] # Déclencher uniquement sur la branche principale
+    tags-ignore: ['*'] # Ignorer les tags
 
 jobs:
   surveillance_clonage:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
-      - uses: actions/checkout@v2
       - name: Vérifier que le répertoire courant est vide
         run: |
           if [ "$(ls -A)" ]; then
-            echo "Répertoire courant non vide"
+            echo "Le répertoire courant n'est pas vide"
             exit 1
           fi
+      - name: Cloner le dépôt
+        uses: actions/checkout@v2
       - name: Renommer le répertoire cloné
         run: |
-          if [ -d .git ]; then
-            repo_name=$(basename -s .git $GITHUB_REPOSITORY)
-            new_dir="$repo_name"_"$GITHUB_ACTOR"
-            mv -f . "$new_dir"
-            cd "$new_dir"
-          fi
-      - name: Vérifier le clonage
-        run: echo "Le clonage a été effectué avec succès !"
+          repo_name=$(basename -s .git $GITHUB_REPOSITORY)
+          new_dir="$repo_name"_"$GITHUB_ACTOR"
+          mv -f . "$new_dir"
 
 
 
