@@ -15,12 +15,7 @@ jobs:
       - name: Renommer le répertoire cloné
         run: |
           if [ -d .git ]; then
-            repo_name=$(basename -s .git $GITHUB_REPOSITORY)
-            new_dir="$repo_name"_"$GITHUB_ACTOR"
-            mkdir "$new_dir"
-            shopt -s dotglob
-            mv -f !(new_dir) "$new_dir"
-            cd "$new_dir"
+            mv . "$(basename -s .git $GITHUB_REPOSITORY)_$GITHUB_ACTOR"
           fi
       - name: Vérifier le clonage
         run: echo "Le clonage a été effectué avec succès !"
