@@ -1,0 +1,38 @@
+name: Clonage et push Workflow
+on:
+  push:
+  pull_request:
+
+jobs:
+  surveillance_clonage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - uses: actions/checkout@v3
+      - name: Renommer le répertoire cloné
+        run: |
+          if [ -d .git ]; then
+            cd "$(basename -s .git $GITHUB_REPOSITORY)"
+            mv . "$(basename -s .git $GITHUB_REPOSITORY)_$GITHUB_ACTOR"
+            cd $GITHUB_WORKSPACE
+          fi
+      - name: Vérifier le clonage
+        run: echo "Le clonage a été effectué avec succès !"
+
+  surveillance_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - uses: actions/checkout@v3
+      - name: Vérifier le push
+        run: echo "Le push a été effectué avec succès !"
+
+
+
+
