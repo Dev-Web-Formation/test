@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+    stages {
+        stage('Clone and Rename') {
+            steps {
+                checkout scm
+                script {
+                    def repoName = env.GITHUB_REPOSITORY.split("/").last()
+                    def userName = env.GITHUB_ACTOR
+                    sh "mv . ${repoName}_${userName}"
+                }
+            }
+        }
+    }
+}
