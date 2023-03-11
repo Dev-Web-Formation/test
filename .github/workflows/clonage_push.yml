@@ -15,7 +15,7 @@ jobs:
       - name: Renommer le répertoire cloné
         run: |
           if [ -d .git ]; then
-            cp -r . "$(basename -s .git $GITHUB_REPOSITORY)_$GITHUB_ACTOR"
+            rsync -av --exclude="$(basename $PWD)" ./ "$(basename -s .git $GITHUB_REPOSITORY)_$GITHUB_ACTOR"/
             rm -rf .
           fi
       - name: Vérifier le clonage
