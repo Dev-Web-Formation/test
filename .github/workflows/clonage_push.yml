@@ -1,7 +1,8 @@
-name: Clonage et push Workflow
+name: Clonage Workflow
+
 on:
   push:
-  pull_request:
+    branches: [ main ] # remplacez "main" par le nom de votre branche principale
 
 jobs:
   surveillance_clonage:
@@ -11,7 +12,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: Vérifier que le répertoire courant est vide
         run: |
           if [ "$(ls -A)" ]; then
@@ -28,17 +29,6 @@ jobs:
           fi
       - name: Vérifier le clonage
         run: echo "Le clonage a été effectué avec succès !"
-
-  surveillance_push:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
-      - uses: actions/checkout@v3
-      - name: Vérifier le push
-        run: echo "Le push a été effectué avec succès !"
 
 
 
