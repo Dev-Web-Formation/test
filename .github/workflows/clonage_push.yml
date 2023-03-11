@@ -19,7 +19,7 @@ jobs:
             new_dir="$repo_name"_"$GITHUB_ACTOR"
             mkdir "$new_dir"
             shopt -s dotglob
-            mv -f !($new_dir) "$new_dir"
+            mv -f !(new_dir) "$new_dir"
             cd "$new_dir"
           fi
       - name: Vérifier le clonage
