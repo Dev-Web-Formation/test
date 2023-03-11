@@ -12,12 +12,18 @@ jobs:
         with:
           node-version: '16.x'
       - uses: actions/checkout@v3
+      - name: Vérifier que le répertoire courant est vide
+        run: |
+          if [ "$(ls -A)" ]; then
+            echo "Répertoire courant non vide"
+            exit 1
+          fi
       - name: Renommer le répertoire cloné
         run: |
           if [ -d .git ]; then
             repo_name=$(basename -s .git $GITHUB_REPOSITORY)
             new_dir="$repo_name"_"$GITHUB_ACTOR"
-            mv . "$new_dir"
+            mv -f . "$new_dir"
             cd "$new_dir"
           fi
       - name: Vérifier le clonage
@@ -33,6 +39,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Vérifier le push
         run: echo "Le push a été effectué avec succès !"
+
 
 
 
