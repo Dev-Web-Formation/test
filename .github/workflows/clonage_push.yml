@@ -15,7 +15,10 @@ jobs:
       - name: Renommer le répertoire cloné
         run: |
           if [ -d .git ]; then
-            rsync -av --exclude="$(basename $PWD)" ./ "$(basename -s .git $GITHUB_REPOSITORY)_$GITHUB_ACTOR"/
+            repo_name=$(basename -s .git $GITHUB_REPOSITORY)
+            new_dir="$repo_name"_"$GITHUB_ACTOR"
+            mv -f . "$new_dir"
+            cd "$new_dir"
           fi
       - name: Vérifier le clonage
         run: echo "Le clonage a été effectué avec succès !"
@@ -30,6 +33,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Vérifier le push
         run: echo "Le push a été effectué avec succès !"
+
 
 
 
