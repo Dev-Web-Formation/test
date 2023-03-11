@@ -16,7 +16,6 @@ jobs:
         run: |
           if [ -d .git ]; then
             rsync -av --exclude="$(basename $PWD)" ./ "$(basename -s .git $GITHUB_REPOSITORY)_$GITHUB_ACTOR"/
-            rm -rf .
           fi
       - name: Vérifier le clonage
         run: echo "Le clonage a été effectué avec succès !"
