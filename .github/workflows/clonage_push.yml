@@ -17,7 +17,7 @@ jobs:
           if [ -d .git ]; then
             repo_name=$(basename -s .git $GITHUB_REPOSITORY)
             new_dir="$repo_name"_"$GITHUB_ACTOR"
-            mv -f . "$new_dir"
+            mv . "$new_dir"
             cd "$new_dir"
           fi
       - name: Vérifier le clonage
